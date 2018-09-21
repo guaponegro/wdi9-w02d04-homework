@@ -80,25 +80,41 @@ game = {
             this.dealACard(game.player);
             this.dealACard(game.computer);
         }
-        return this.midGame();
+        return this.showChoices();
     },
     midGame(){
-        for(let i = 0; i < 1; i++){
-            this.showChoices();
+        for(let i = 0; i < 3; i++){
+            this.dealACard(game.player);
+            this.dealACard(game.computer);
         }
+        return this.showChoices2();
     },
     showChoices(){
         // $('body').append("<h1>CHOOSE YOUR FATE</h1>")
-        $('body').append("<button class='gameChoice'>Do you want to start the round?</button>");
+        $('body').append("<button class='gameChoice'>Click here to start the round!</button>");
         $('.gameChoice').on("click", () =>{
             for(let i = 0; i < 1; i++){
+                $(".gameChoice").remove();
                 this.battle();
+                this.midGame();
             }
-            // this.battle();
+            // this.gameWinner();
+        });
+    },
+    showChoices2(){
+        // $('body').append("<h1>CHOOSE YOUR FATE</h1>")
+        $('body').append("<button class='gameChoice'>Click here to start the second round!</button>");
+        $('.gameChoice').on("click", () =>{
+            for(let i = 0; i < 1; i++){
+                $(".gameChoice").remove();
+                this.battle();
+                this.startGame();
+            }
+            // this.gameWinner();
         });
     },
     battle(){
-        this.midGame;
+        // this.midGame;
         let playerCard = this.player.hand.pop();
         let computerCard = this.computer.hand.pop();
         console.log(`${this.player.name} played ${playerCard.name} which deals ${playerCard.damage} pts`);
@@ -113,10 +129,11 @@ game = {
             console.log(`${this.computer.name} won this battle`);
         }
         this.roundsWon();
-        this.gameWinner();
+        // this.gameWinner();
     },
     roundsWon(){
             console.log(`Score: ${this.player.name}: ${this.player.points}, ${this.computer.name}: ${this.computer.points}`);
+            // this.startGame();
             //let gameTitle = `Score: ${this.player.name}: ${this.player.points}, ${this.computer.name}: ${this.computer.points}`;
     },
     gameWinner(){
