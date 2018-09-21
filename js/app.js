@@ -89,32 +89,45 @@ game = {
         }
         return this.showChoices2();
     },
+    finalGame(){
+        for(let i = 0; i < 3; i++){
+            this.dealACard(game.player);
+            this.dealACard(game.computer);
+        }
+        return this.showChoices3();
+    },
     showChoices(){
-        // $('body').append("<h1>CHOOSE YOUR FATE</h1>")
         $('body').append("<button class='gameChoice'>Click here to start the round!</button>");
         $('.gameChoice').on("click", () =>{
             for(let i = 0; i < 1; i++){
                 $(".gameChoice").remove();
+                //$("body").append();
                 this.battle();
                 this.midGame();
             }
-            // this.gameWinner();
         });
     },
     showChoices2(){
-        // $('body').append("<h1>CHOOSE YOUR FATE</h1>")
         $('body').append("<button class='gameChoice'>Click here to start the second round!</button>");
         $('.gameChoice').on("click", () =>{
             for(let i = 0; i < 1; i++){
                 $(".gameChoice").remove();
                 this.battle();
-                this.startGame();
+                this.finalGame();
             }
-            // this.gameWinner();
+        });
+    },
+    showChoices3(){
+        $('body').append("<button class='gameChoice'>Click here to start the final round!</button>");
+        $('.gameChoice').on("click", () =>{
+            for(let i = 0; i < 1; i++){
+                $(".gameChoice").remove();
+                this.battle();
+                this.gameWinner();
+            }
         });
     },
     battle(){
-        // this.midGame;
         let playerCard = this.player.hand.pop();
         let computerCard = this.computer.hand.pop();
         console.log(`${this.player.name} played ${playerCard.name} which deals ${playerCard.damage} pts`);
@@ -122,53 +135,37 @@ game = {
         if(playerCard.damage > computerCard.damage){
             this.player.points ++
             console.log(`${this.player.name} won this battle`);
-        } else if(playerCard.damage === computerCard.damage){
-            console.log("Tie Game");
-        } else {
-            this.computer.points ++
-            console.log(`${this.computer.name} won this battle`);
+        } else if(computerCard.damage > playerCard.damage){
+            this.computer.points++
+        } else if (playerCard.damage === computerCard.damage){
+            console.log("TIE GAME!!!");
         }
+        this.playerWon = `${this.player.name} won this battle`;
+        this.computerWon = `${this.computer.name} won this battle`;
         this.roundsWon();
-        // this.gameWinner();
     },
     roundsWon(){
             console.log(`Score: ${this.player.name}: ${this.player.points}, ${this.computer.name}: ${this.computer.points}`);
-            // this.startGame();
-            //let gameTitle = `Score: ${this.player.name}: ${this.player.points}, ${this.computer.name}: ${this.computer.points}`;
     },
     gameWinner(){
-        const playerWon = `${this.player.name} won this battle`;
-        const computerWon = `${this.computer.name} won this battle`;
-        if(playerWon){
+        if(this.player.points > this.computer.points){
             console.log(`${this.player.name} won the game!!!`);
-        } else if (computerWon){
+        } else if (this.computer.points > this.player.points){
             console.log(`${this.computer.name} won the game!!!`);
         } else {
             console.log(`NO ONE WINS!!!!!!!!!!!!!!!`)
         }
     },
-    // showChoices(){
-    //     // $('body').append("<h1>CHOOSE YOUR FATE</h1>")
-    //     $('body').append("<button class='gameChoice'>Do you want to start the round?</button>");
-    //     $('.gameChoice').on("click", () =>{
-    //         for(let i = 0; i < 3; i++){
-    //             this.battle();
-    //         }
-    //         this.battle();
-    //     });
-    // }
 }
 $(".start").html("Start Game!").on("click", () => {
     $('.start').remove();
-    $("div").append("<h1>Pokeman Game</h1>");
     $("div").append("<h2>The game is beginning</h2>");
+    // $(".removeh2").remove();
     for(i = 0; i < 1; i++){
         game.startGame();  
       }
 });
 
-//$('.removeSect').remove();
-//$("div").append("<h2>The game is beginning</h2>");
 
 
 
